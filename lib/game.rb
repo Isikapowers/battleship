@@ -9,59 +9,62 @@ class Game
     @computer = Computer.new
     @board_height
     @board_width
+    @ships = []
   end
 
   def main_menu
     puts " "
-     puts "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit."
-     input = gets.chomp
-     input
+    puts "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit."
+    input = gets.chomp
+    input
+  end
+
+  def create_ships
+    puts "How many ships would you like to play with?"
+    ship_count = gets.chomp.to_i
+    ship_count.times do
+      puts "To add a ship enter the name then the length and press enter:"
+      ship = gets.chomp
+      @ships << ship
+    end
   end
 
   def place_player_ships
-    puts "I have laid out my ships on the grid.\nYou now need to lay out your two ships.\nThe Cruiser is three units long and the Submarine is two units long."
+    puts "I have laid out my ships on the grid.\nYou now need to lay out your ships."
     puts @player_board.render
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
     puts " "
-    puts "Enter the squares for the Cruiser (3 spaces):"
+    @ships.each do |ship_string|
+      ship_array = ship_string.split(" ")
+      ship = Ship.new(ship_array[0], ship_array[1].to_i)
+      puts "Enter the squares for the #{ship.name} (#{ship.length} spaces):"
 
-    result = "Your spaces are invalid. Please try again:"
-    while result == "Your spaces are invalid. Please try again:" do
-      input = gets.chomp.split(" ")
-      result = @player_board.place(cruiser, input)
-      if result == "Your spaces are invalid. Please try again:"
+      result = "Your spaces are invalid. Please try again:"
+      while result == "Your spaces are invalid. Please try again:" do
+        input = gets.chomp.split(" ")
+        result = @player_board.place(ship, input)
+        if result == "Your spaces are invalid. Please try again:"
         puts result
+        end
       end
+      puts @player_board.render(true)
+      puts " "
     end
-
-    puts @player_board.render(true)
-    puts " "
-    puts "Enter the squares for the Submarine (2 spaces):"
-
-    result = "Your spaces are invalid. Please try again:"
-    while result == "Your spaces are invalid. Please try again:" do
-      input = gets.chomp.split(" ")
-      result = @player_board.place(submarine, input)
-      if result == "Your spaces are invalid. Please try again:"
-        puts result
-      end
-    end
-
-    puts @player_board.render(true)
     return @player_board
   end
 
   def place_computer_ships
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
-    @computer_board = @computer.place_ship(@computer_board, submarine)
-    @computer_board = @computer.place_ship(@computer_board, cruiser)
+    @ships.each do |ship_string|
+      ship_array = ship_string.split(" ")
+      ship = Ship.new(ship_array[0], ship_array[1].to_i)
+      @computer_board = @computer.place_ship(@computer_board, ship)
+    end
     @computer_board
   end
 
   def play_game
+    @ships = []
     board_size
+    create_ships
     @player_board = Board.new(@board_height, @board_width)
     @computer_board = Board.new(@board_height, @board_width)
     @player = Player.new
@@ -70,7 +73,7 @@ class Game
     place_computer_ships
     puts " "
     puts "=============COMPUTER BOARD============="
-    puts @computer_board.render(true)
+    puts @computer_board.render
     puts "==============PLAYER BOARD=============="
     puts @player_board.render(true)
     while !all_ships_sunk?(@computer_board) && !all_ships_sunk?(@player_board) do
@@ -94,7 +97,7 @@ class Game
 
        puts " "
        puts "=============COMPUTER BOARD============="
-       puts @computer_board.render(true)
+       puts @computer_board.render
        puts "==============PLAYER BOARD=============="
        puts @player_board.render(true)
     end
