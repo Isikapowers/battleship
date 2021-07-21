@@ -25,7 +25,13 @@ class Computer
       random_coordinate = get_random_coordinate
       random_direction = get_random_direction
       random_coordinate_letter = random_coordinate[0]
-      random_coordinate_number = random_coordinate[1]
+
+      if random_coordinate.length == 2
+        random_coordinate_number = random_coordinate[1]
+      elsif random_coordinate.length > 2
+        random_coordinate_number = random_coordinate[1, 2]
+      end
+
       coordinates = []
       if random_direction == 0
         counter = 0
