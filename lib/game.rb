@@ -3,10 +3,10 @@ class Game
   attr_reader :player_board, :computer_board, :player, :computer, :board_height, :board_width
 
   def initialize
-    @player_board
-    @computer_board
-    @player
-    @computer
+    @player_board = Board.new
+    @computer_board = Board.new
+    @player = Player.new
+    @computer = Computer.new
     @board_height
     @board_width
   end

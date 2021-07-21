@@ -36,7 +36,7 @@ RSpec.describe Computer do
 
       expect(computer.unhit_coordinates.length).to eq(15)
       expect(computer.coordinates_track).to eq(["A3"])
-      expect(board.render).to eq("  1 2 3 4 \nA . . M . \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(board.render).to eq("  1 2 3 4\nA . . M . \nB . . . . \nC . . . . \nD . . . . \n")
     end
 
     it "can randomly place ships" do
@@ -47,14 +47,14 @@ RSpec.describe Computer do
       allow(computer).to receive(:get_random_coordinate).and_return("A1")
       allow(computer).to receive(:get_random_direction).and_return(0)
 
-      expect(computer.place_ship(computer_board, ship2).render(true)).to eq("  1 2 3 4 \nA S S . . \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(computer.place_ship(computer_board, ship2).render(true)).to eq("  1 2 3 4\nA S S . . \nB . . . . \nC . . . . \nD . . . . \n")
 
       cruiser = Ship.new("Cruiser", 3)
 
       allow(computer).to receive(:get_random_coordinate).and_return("B2")
       allow(computer).to receive(:get_random_direction).and_return(1)
 
-      expect(computer.place_ship(computer_board, cruiser).render(true)).to eq("  1 2 3 4 \nA S S . . \nB . S . . \nC . S . . \nD . S . . \n")
+      expect(computer.place_ship(computer_board, cruiser).render(true)).to eq("  1 2 3 4\nA S S . . \nB . S . . \nC . S . . \nD . S . . \n")
     end
 
     it 'can display turn messages' do

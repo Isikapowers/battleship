@@ -2,7 +2,7 @@ class Computer
 
   attr_reader :coordinates_track, :unhit_coordinates
 
-  def initialize(height, width)
+  def initialize(height = 4, width = 4)
     @unhit_coordinates = Board.new(height, width).cells.keys
     @coordinates_track = []
     @board_height = height

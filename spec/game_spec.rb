@@ -55,6 +55,8 @@ RSpec.describe Game do
       submarine_2 = Ship.new("Submarine", 2)
       cruiser_2 = Ship.new("Cruiser", 3)
 
+
+
       game.player_board.place(cruiser_1, ['A1', 'B1', 'C1'])
       game.player_board.place(submarine_1, ['A2', 'B2'])
 

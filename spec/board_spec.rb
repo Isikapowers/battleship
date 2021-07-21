@@ -63,6 +63,9 @@ RSpec.describe Board do
       expect(board.all_in_same_row_consecutive?(["A1", "A2", "B4"])).to eq(false)
       expect(board.all_in_same_row_consecutive?(["A1", "C1"])).to eq(false)
       expect(board.all_in_same_row_consecutive?(["A3", "A2", "A1"])).to eq(false)
+
+      board = Board.new(10, 10)
+      expect(board.all_in_same_row_consecutive?(["A8", "A9", "A10"])).to eq(true)
     end
 
     it "has coordinates in the same column" do
@@ -73,6 +76,8 @@ RSpec.describe Board do
       expect(board.all_in_same_column?(["A1", "C1", "B4"])).to eq(false)
       expect(board.all_in_same_column?(["A1", "C2"])).to eq(false)
       expect(board.all_in_same_column?(["A3", "A2", "A1"])).to eq(false)
+      board = Board.new(10, 10)
+      expect(board.all_in_same_column?(["A10", "B10", "C10"])).to eq(true)
     end
 
     it "has coordinates in the same column with consecutive chars" do
@@ -118,21 +123,21 @@ RSpec.describe Board do
       cruiser = Ship.new("Cruiser", 3)
       board.place(cruiser, ["A1", "A2", "A3"])
 
-      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
-      expect(board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(board.render).to eq("  1 2 3 4\nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(board.render(true)).to eq("  1 2 3 4\nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
 
       submarine = Ship.new("Submarine", 2)
       board.place(submarine, ["B2", "C2"])
 
-      expect(board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . S . . \nC . S . . \nD . . . . \n")
+      expect(board.render(true)).to eq("  1 2 3 4\nA S S S . \nB . S . . \nC . S . . \nD . . . . \n")
 
       board.cells["A1"].fire_upon
       board.cells["B4"].fire_upon
-      expect(board.render(true)).to eq("  1 2 3 4 \nA H S S . \nB . S . M \nC . S . . \nD . . . . \n")
+      expect(board.render(true)).to eq("  1 2 3 4\nA H S S . \nB . S . M \nC . S . . \nD . . . . \n")
 
       board.cells["B2"].fire_upon
       board.cells["C2"].fire_upon
-      expect(board.render(true)).to eq("  1 2 3 4 \nA H S S . \nB . X . M \nC . X . . \nD . . . . \n")
+      expect(board.render(true)).to eq("  1 2 3 4\nA H S S . \nB . X . M \nC . X . . \nD . . . . \n")
     end
   end
 end

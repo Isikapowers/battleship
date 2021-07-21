@@ -26,7 +26,7 @@ RSpec.describe Player do
 
       player.take_turn("A1", opponent_board)
       expect(player.coordinates_track).to eq(["A1"])
-      expect(opponent_board.render).to eq("  1 2 3 4 \nA M . . . \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(opponent_board.render).to eq("  1 2 3 4\nA M . . . \nB . . . . \nC . . . . \nD . . . . \n")
 
       expect(player.take_turn("A1", opponent_board)).to eq("You have already entered this coordinate. Try again:")
       expect(player.take_turn("Z1", opponent_board)).to eq("This is an invalid coordinate. Try again:")

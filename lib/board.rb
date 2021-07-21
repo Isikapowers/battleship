@@ -2,7 +2,7 @@ class Board
 
   attr_reader :cells, :last_row, :last_column
 
-  def initialize(height, width)
+  def initialize(height = 4, width = 4)
     @last_row = (64 + height).chr
     @last_column = width.to_s
     @cells = create_board
@@ -58,18 +58,28 @@ class Board
     array.each_cons(coordinates.count) do |item|
       valid_coordinates << item
     end
-
     actual_coordinates = coordinates.map do |item|
-      item[1].to_i
+      if item.length == 2
+        item[1].to_i
+      elsif item.length > 2
+        item[1,2].to_i
+      end
     end
 
     valid_coordinates.include?(actual_coordinates)
   end
 
   def all_in_same_column?(coordinates)
-    same_number = coordinates[0][1]
-    coordinates.all? do |item|
-      item[1] == same_number
+    if @last_column.to_i < 10
+      same_number = coordinates[0][1]
+      coordinates.all? do |item|
+        item[1] == same_number
+      end
+    else
+      same_number = coordinates[0][1..2]
+      coordinates.all? do |item|
+        item[1..2] == same_number
+      end
     end
   end
 
