@@ -14,7 +14,7 @@
 This project uses Ruby to build a command line implementation of the classic game Battleship. 
 
 ## Screenshot
-
+![image](https://user-images.githubusercontent.com/72399033/131873586-c28865d3-72a8-4658-9436-d43769718fe6.png)
 
 ## Learning Goals
 * Utilize Test Driven Development
